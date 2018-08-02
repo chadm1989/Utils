@@ -92,3 +92,7 @@ For i = 2 To 365
     End If
     
 Next i
+
+
+FontCollection.cpp 在界面加载字体的时候，判断是否是皮套模式，如果是皮套模式，使用皮套字体
+getFamilyForChar
