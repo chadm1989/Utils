@@ -1,0 +1,21 @@
+permission权限分4种
+https://developer.android.com/reference/android/content/pm/PermissionInfo
+
+可以查看所有权限配置
+adb shell pm list permissions -f -g
+
+此目录下面会为系统应用授权一些应用的权限
+This XML file declares which signature|privileged permissions should be granted to privileged
+applications that come with the platform
+frameworks/base/data/etc/privapp-permissions-platform.xml
+
+在如下目录下面，可以查看所有应用的权限
+data/system/packages.xml
+
+涉及的知识点
+PMS扫描各目录的apk
+
+install权限：
+安装时权限，是指在安装app的时候，赋予app的权限。normal和signature级别(包括SignatureOrSystem)的权限都是安装时权限。不会给用户提示界面，系统自动决定权限的赋予或拒绝。
+runtime权限：
+运行时权限，是指在app运行过程中，赋予app的权限。这个过程中，会显示明显的权限授予界面，让用户决定是否授予权限。dangerous权限就是运行时权限。(以下主要针对SDK<23时dangerous权限就变成了install权限)
