@@ -1,0 +1,32 @@
+Function improtProject()
+
+Dim rLine As String
+Dim i As Integer ' line number
+Dim j As Integer
+Dim k As Integer
+Dim file As String
+Dim arr
+Dim dts As Worksheet
+
+Set dts = ThisWorkbook.Worksheets("Config")
+
+i = 1
+k = 4
+file = ThisWorkbook.Path + "\" + "config.txt"
+Open file For Input As #1
+' stay inside the loop until the end of file is reached
+Do While Not EOF(1)
+    Line Input #1, rLine
+    'debug.Print rLine
+    i = i + 1
+    arr = Split(rLine, " ")
+    Debug.Print arr(0), arr(1)
+    dts.Range("A" & k).Value = arr(0)
+    dts.Range("B" & k).Value = arr(1)
+    k = k + 1
+    
+Loop
+
+Close #1
+
+End Function
