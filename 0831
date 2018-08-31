@@ -1,0 +1,37 @@
+屏幕尺寸
+https://pastebin.com/sc6fcgNi
+
+preferenceActivity出现空白问题
+https://stackoverflow.com/questions/18138642/issues-with-dual-pane-preference-screens
+
+只有在sw720dp里面有定义 <bool name="preferences_prefer_dual_pane">true</bool>为true
+E:\BaiduNetdiskDownload\android-8.1.0_r1\frameworks\base\core\res\res\values-sw720dp
+
+sw800里面没有定义，会取sw720dp里面的配置
+
+另外一点需要关注的东西10寸平板和7寸平板有
+\android-8.1.0_r1\frameworks\base\core\res\res\layout-xlarge
+https://stackoverflow.com/questions/15090752/how-to-include-10-and-7-layouts-properly
+
+PreferenceActivity.java
+
+    mSinglePane = hidingHeaders || !onIsMultiPane();
+
+    判断是否支持分栏里面
+    public boolean onIsMultiPane() {
+        boolean preferMultiPane = getResources().getBoolean(
+                com.android.internal.R.bool.preferences_prefer_dual_pane);
+        return preferMultiPane;
+    }
+    
+    在showBreadCrumbs方法里面会根据mSinglePane来判断
+    public void showBreadCrumbs(CharSequence title, CharSequence shortTitle) {
+        if (mFragmentBreadCrumbs == null) {
+            ....
+            if (mSinglePane) {
+                mFragmentBreadCrumbs.setVisibility(View.GONE);
+                // Hide the breadcrumb section completely for single-pane
+                View bcSection = findViewById(com.android.internal.R.id.breadcrumb_section);
+                if (bcSection != null) bcSection.setVisibility(View.GONE);
+                setTitle(title);
+            }
